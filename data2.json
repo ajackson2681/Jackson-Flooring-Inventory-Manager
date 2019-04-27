@@ -1,0 +1,28 @@
+{
+	"products":[
+		{
+			"manufacturer":"Shaw",
+			"color":"Gray",
+			"style":"Birdbath",
+			"dimensions":"12x12",
+			"quantity":"5",
+			"type":"Tile",
+			"amountPerBox":"5",
+			"sqFoot":"1",
+			"sqFootTotal":"25",
+			"inStock":"true"
+		},
+	    {
+			"manufacturer":"Shaw",
+			"color":"Birdbath",
+			"style":"Points of color",
+			"dimensions":"144ft",
+			"quantity":"1",
+			"type":"Tile",
+			"amountPerBox":"1",
+			"sqFoot":"144",
+			"sqFootTotal":"25",
+			"inStock":"true"
+		}
+	]
+}
