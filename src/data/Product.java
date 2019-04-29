@@ -11,8 +11,9 @@ public class Product {
   private int amountPerBox;
   private double sqFoot;
   private double sqFootTotal;
-  private boolean inStock;
-
+  private String inStock;
+  private String price;
+  
   public Product() {
   }
 
@@ -56,11 +57,11 @@ public class Product {
     this.sqFoot = sqFoot;
   }
 
-  public boolean isInStock() {
+  public String isInStock() {
     return inStock;
   }
 
-  public void setInStock(boolean inStock) {
+  public void setInStock(String inStock) {
     this.inStock = inStock;
   }
 
@@ -103,5 +104,13 @@ public class Product {
 
   public void setColor(String color) {
     this.color = color;
+  }
+
+  public String getPrice() {
+    return price;
+  }
+
+  public void setPrice(String price) {
+    this.price = price;
   }
 }

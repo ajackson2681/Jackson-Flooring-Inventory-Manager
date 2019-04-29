@@ -21,7 +21,7 @@ public class Main extends Application {
     primaryStage.setTitle("Jackson Flooring Inventory Management System");
     try {
       BorderPane root = new BorderPane();
-      currentScene = new ComboScene(root, 1100, 620, primaryStage);
+      currentScene = new ComboScene(root, 1100, 650, primaryStage);
       primaryStage.setScene(currentScene);
       primaryStage.show();
     } 

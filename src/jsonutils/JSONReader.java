@@ -41,7 +41,8 @@ public class JSONReader {
       productToAdd.setAmountPerBox(Integer.parseInt((String)curProduct.get("amountPerBox")));
       productToAdd.setSqFoot(Double.parseDouble((String)curProduct.get("sqFoot")));
       productToAdd.setSqFootTotal(Double.parseDouble((String)curProduct.get("sqFootTotal")));
-      productToAdd.setInStock(Boolean.parseBoolean((String)curProduct.get("inStock")));
+      productToAdd.setInStock((String)curProduct.get("inStock"));
+      productToAdd.setPrice((String)curProduct.get("price"));
       
       try {
         Main.allProducts.add(productToAdd);

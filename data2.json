@@ -10,7 +10,8 @@
 			"amountPerBox":"5",
 			"sqFoot":"1",
 			"sqFootTotal":"25",
-			"inStock":"true"
+			"inStock":"true",
+			"price":"$1.25/sq foot"
 		},
 	    {
 			"manufacturer":"Shaw",
@@ -22,7 +23,8 @@
 			"amountPerBox":"1",
 			"sqFoot":"144",
 			"sqFootTotal":"25",
-			"inStock":"true"
+			"inStock":"true",
+			"price":"$1.25/sq foot"
 		}
 	]
 }

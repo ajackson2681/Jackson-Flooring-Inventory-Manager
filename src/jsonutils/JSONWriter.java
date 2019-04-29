@@ -25,6 +25,7 @@ public class JSONWriter {
       curProduct.put("sqFoot", String.valueOf(p.getSqFoot()));
       curProduct.put("sqFootTotal", String.valueOf(p.getSqFootTotal()));
       curProduct.put("inStock", String.valueOf(p.isInStock()));
+      curProduct.put("price", p.getPrice());
       allProducts.add(curProduct);
     }
     doc.put("products", allProducts);

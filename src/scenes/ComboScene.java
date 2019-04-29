@@ -26,7 +26,7 @@ public class ComboScene extends Scene {
   Button confirm;
   Button cancel;
   Label lbl;
-  TextField[] fields = new TextField[10];
+  TextField[] fields = new TextField[11];
   Button delete;
   HBox bottomControls;
   
@@ -101,8 +101,8 @@ public class ComboScene extends Scene {
     VBox centerControls = new VBox(10);
     centerControls.setPadding(new Insets(30,30,0,40));
 
-    HBox[] rows = new HBox[10];
-    Label[] labels = new Label[10];
+    HBox[] rows = new HBox[11];
+    Label[] labels = new Label[11];
     for(int i = 0; i < rows.length; i++) {
       rows[i] = new HBox();
       fields[i] = new TextField();
@@ -150,7 +150,11 @@ public class ComboScene extends Scene {
     labels[9].setStyle("-fx-font-size:20");
     rows[9].setSpacing(56);
     
-    for(int i = 0; i <= 9; i++) {
+    labels[10] = new Label(String.format("%-15s", "Price: "));
+    labels[10].setStyle("-fx-font-size:20");
+    rows[10].setSpacing(66);
+    
+    for(int i = 0; i < rows.length; i++) {
       rows[i].getChildren().addAll(labels[i], fields[i]);
     }
     
@@ -225,7 +229,8 @@ public class ComboScene extends Scene {
     fields[6].setText(prod.getType());
     fields[7].setText(String.valueOf(prod.getSqFoot()));
     fields[8].setText(String.valueOf(prod.getSqFootTotal()));
-    fields[9].setText(String.valueOf(prod.isInStock()));
+    fields[9].setText(prod.isInStock());
+    fields[10].setText(prod.getPrice());
   }
 
   private void deleteProduct(Product prod) {
@@ -281,14 +286,7 @@ public class ComboScene extends Scene {
       return;
     }
     
-    boolean inStock = false;
-    if(!fields[9].getText().equals("true") && !fields[9].getText().contentEquals("false")) {
-      alert = new Alert(AlertType.WARNING, "In stock status must be true or false");
-      alert.showAndWait();
-      return;
-    }
-    
-    inStock = Boolean.parseBoolean(fields[9].getText());
+    String inStock = fields[9].getText();
 
     prod.setManufacturer(man);
     prod.setColor(color);
@@ -313,6 +311,7 @@ public class ComboScene extends Scene {
     cancel.setOnAction(e -> {
       clearFields();
     });
+    bottomControls.getChildren().remove(delete);
   }
 
   private void makeNewProduct() {
@@ -360,14 +359,7 @@ public class ComboScene extends Scene {
       return;
     }
     
-    boolean inStock = false;
-    if(!fields[9].getText().equals("true") && !fields[9].getText().contentEquals("false")) {
-      alert = new Alert(AlertType.WARNING, "In stock status must be true or false");
-      alert.showAndWait();
-      return;
-    }
-    
-    inStock = Boolean.parseBoolean(fields[9].getText());
+    String inStock = fields[9].getText();
     
     prod.setManufacturer(man);
     prod.setColor(color);
@@ -403,6 +395,7 @@ public class ComboScene extends Scene {
     cancel.setOnAction(e -> {
       clearFields();
     });
+    bottomControls.getChildren().remove(delete);
   }
 
   private boolean allFieldsEmpty() {
