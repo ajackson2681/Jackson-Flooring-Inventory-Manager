@@ -288,6 +288,8 @@ public class ComboScene extends Scene {
     
     String inStock = fields[9].getText();
 
+    String price = fields[10].getText();
+    
     prod.setManufacturer(man);
     prod.setColor(color);
     prod.setStyle(style);
@@ -298,6 +300,7 @@ public class ComboScene extends Scene {
     prod.setSqFoot(sqFoot);
     prod.setSqFootTotal(numPer*sqFoot*qty);
     prod.setInStock(inStock);
+    prod.setPrice(price);
     clearFields();
     
     listProducts.clear();

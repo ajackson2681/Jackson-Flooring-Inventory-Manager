@@ -35,8 +35,4 @@ public class Main extends Application {
     JSONReader.load("data.json");
     launch(args);
   }
-  
-  public void Stop() {
-    JSONWriter.write("data.json");
-  }
 }
