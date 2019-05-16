@@ -94,10 +94,6 @@ public class Product {
         manufacturer, color, style, dimensions, type);
   }
 
-  public int hashCode() {
-    return manufacturer.hashCode();
-  }
-
   public String getColor() {
     return color;
   }

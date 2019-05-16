@@ -2,8 +2,7 @@ package application;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import jsonutils.JSONReader;
-import jsonutils.JSONWriter;
+import jsonutils.JSONUtils;
 import scenes.ComboScene;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -17,11 +16,12 @@ public class Main extends Application {
   
   @Override
   public void start(Stage primaryStage) {
-    primaryStage.setOnCloseRequest(e -> { JSONWriter.write("data.json"); });
+    primaryStage.setOnCloseRequest(e -> { JSONUtils.write("data.json"); });
     primaryStage.setTitle("Jackson Flooring Inventory Management System");
+    primaryStage.setResizable(false);
     try {
       BorderPane root = new BorderPane();
-      currentScene = new ComboScene(root, 1100, 650, primaryStage);
+      currentScene = new ComboScene(root, 1310, 650, primaryStage);
       primaryStage.setScene(currentScene);
       primaryStage.show();
     } 
@@ -32,7 +32,7 @@ public class Main extends Application {
 
   public static void main(String[] args) {
     allProducts = new ArrayList<>();
-    JSONReader.load("data.json");
+    JSONUtils.load("data.json");
     launch(args);
   }
 }
