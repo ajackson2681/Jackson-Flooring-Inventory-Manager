@@ -1,1 +1,3 @@
-# Jackson-Flooring-Inventory-Manager
+# Jackson Flooring Inventory Manager
+
+This is a simple JavaFX application to manage the inventory for a smalll flooring retailer by the name of Jackson Flooring, LLC, located in Poynette, WI. While most of the information such as the title and data file names are hardcoded in, it can be easily modified for more general use. It makes use of the JSON simple library to parse the data file, and saves after every operation to ensure that data isn't lost. While the interal data strucutre is wildly ineffecient for a large scale, the intended usage will likely not exceed a few thousand items, which an ArrayList is more than capable of handling with reasonable speed.
