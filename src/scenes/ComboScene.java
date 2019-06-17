@@ -1,10 +1,7 @@
 package scenes;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import application.Main;
 import data.Product;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -23,11 +20,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ComboScene extends Scene {
-
-  ObservableList<Product> listProducts;
+  
   Button confirm;
   Button cancel;
+  Button delete;
+  
   Label lbl;
+  
   TextField manField = new TextField();
   TextField styleField = new TextField();
   TextField colorField = new TextField();
@@ -39,10 +38,11 @@ public class ComboScene extends Scene {
   TextField typeField = new TextField();
   TextField inStockField = new TextField();
   TextField priceField = new TextField();
-  Button delete;
-  HBox bottomControls;
-  ListView<Product> lv;
   
+  HBox bottomControls;
+  
+  ListView<Product> lv;
+
   public ComboScene(BorderPane root, double width, double height, Stage stage) {
     super(root, width, height);
     initLeft(root);
@@ -61,18 +61,14 @@ public class ComboScene extends Scene {
   private void initLeft_Top(BorderPane root) {
     HBox topControls = new HBox();
     topControls.setPadding(new Insets(30, 0, 0, 40));
-    
+
     Label header = new Label();
     header.setFont(new Font("Courier New", 15));
-    
-    header.setText(String.format("%-15s | %-15s | %-15s | %-15s | %-15s", 
-        "Manufacturer",
-        "Color",
-        "Style",
-        "Dimensions",
-        "Type"));
+
+    header.setText(String.format("%-15s | %-15s | %-15s | %-15s | %-15s", "Manufacturer", "Color",
+        "Style", "Dimensions", "Type"));
     topControls.getChildren().addAll(header);
-    
+
     root.setTop(topControls);
   }
 
@@ -103,11 +99,9 @@ public class ComboScene extends Scene {
   private void initLeft_Center(BorderPane root) {
     VBox centerControls = new VBox(10);
     centerControls.setPadding(new Insets(5, 30, 30, 30));
-    listProducts = FXCollections.observableArrayList();
-    listProducts.addAll(Main.allProducts);
 
     lv = new ListView<>();
-    lv.setItems(listProducts);
+    lv.setItems(Main.allProducts);
     lv.setMinHeight(520);
     lv.setMinWidth(810);
     lv.setOnMouseClicked(e -> {
@@ -140,7 +134,7 @@ public class ComboScene extends Scene {
     holder.getChildren().addAll(lbl);
     root.setTop(holder);
   }
-  
+
   private void initRight_Center(BorderPane root) {
     VBox centerControls = new VBox(10);
     centerControls.setPadding(new Insets(30, 30, 0, 40));
@@ -208,7 +202,7 @@ public class ComboScene extends Scene {
     rows[8].getChildren().addAll(labels[8], sqFootTotalField);
     rows[9].getChildren().addAll(labels[9], inStockField);
     rows[10].getChildren().addAll(labels[10], priceField);
-    
+
     priceField.setOnKeyPressed(e -> {
       if (e.getCode().equals(KeyCode.ENTER)) {
         addNewProduct();
@@ -225,11 +219,10 @@ public class ComboScene extends Scene {
     confirm = new Button();
     confirm.setText("Add Product");
     confirm.setOnAction(e -> {
-      if(allFieldsEmpty()) {
+      if (allFieldsEmpty()) {
         Alert alert = new Alert(AlertType.WARNING, "All fields are empty!");
         alert.showAndWait();
-      }
-      else {
+      } else {
         addNewProduct();
       }
     });
@@ -238,18 +231,20 @@ public class ComboScene extends Scene {
     cancel.setOnAction(e -> {
       clearFields();
     });
-    
+
     bottomControls.getChildren().addAll(confirm, cancel);
     root.setBottom(bottomControls);
   }
 
   private void search(String query) {
-    List<Product> newList = Main.allProducts.stream()
-        .filter(s -> s.toString().toLowerCase().contains(query.toLowerCase()))
-        .collect(Collectors.toList());
-    listProducts.clear();
-    listProducts.addAll(newList);
-    
+    if(query.equals("")) {
+      lv.setItems(Main.allProducts);
+    }
+    else {
+      ObservableList<Product> newList = Main.allProducts.filtered(e -> e.toString().toLowerCase().contains(query.toLowerCase()));
+      lv.setItems(newList);
+    }
+
     lv.setCellFactory(cell -> {
       return new ListCell<Product>() {
         @Override
@@ -277,47 +272,45 @@ public class ComboScene extends Scene {
     inStockField.setText("");
     priceField.setText("");
   }
-  
+
   private boolean allFieldsEmpty() {
-    if(!manField.getText().equals("")) {
+    if (!manField.getText().equals("")) {
       return false;
     }
-    if(!styleField.getText().equals("")) {
+    if (!styleField.getText().equals("")) {
       return false;
     }
-    if(!colorField.getText().equals("")) {
+    if (!colorField.getText().equals("")) {
       return false;
     }
-    if(!dimField.getText().equals("")) {
+    if (!dimField.getText().equals("")) {
       return false;
     }
-    if(!qtyField.getText().equals("")) {
+    if (!qtyField.getText().equals("")) {
       return false;
     }
-    if(!qtyPerField.getText().equals("")) {
+    if (!qtyPerField.getText().equals("")) {
       return false;
     }
-    if(!sqFootField.getText().equals("")) {
+    if (!sqFootField.getText().equals("")) {
       return false;
     }
-    if(!sqFootTotalField.getText().equals("")) {
+    if (!sqFootTotalField.getText().equals("")) {
       return false;
     }
-    if(!typeField.getText().equals("")) {
+    if (!typeField.getText().equals("")) {
       return false;
     }
-    if(!inStockField.getText().equals("")) {
+    if (!inStockField.getText().equals("")) {
       return false;
     }
-    if(!priceField.getText().equals("")) {
+    if (!priceField.getText().equals("")) {
       return false;
     }
     return true;
   }
 
   private void updateListView() {
-    listProducts.clear();
-    listProducts.addAll(Main.allProducts);
     lv.setCellFactory(cell -> {
       return new ListCell<Product>() {
         @Override
@@ -331,54 +324,51 @@ public class ComboScene extends Scene {
       };
     });
   }
-  
+
   private void addNewProduct() {
     Alert alert = null;
     Product prod = new Product();
-    
+
     String man = manField.getText();
     String color = colorField.getText();
     String style = styleField.getText();
     String dim = dimField.getText();
-    
+
     int qty = 0;
-    
+
     try {
       qty = Integer.parseInt(qtyField.getText());
-    }
-    catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       alert = new Alert(AlertType.WARNING, "Invalid input for Num. Units!");
       alert.showAndWait();
       return;
     }
-    
+
     String type = typeField.getText();
-    
+
     int numPer = 0;
-    
+
     try {
       numPer = Integer.parseInt(qtyPerField.getText());
-    }
-    catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       alert = new Alert(AlertType.WARNING, "Invalid input for Qty./Unit!");
       alert.showAndWait();
       return;
     }
-    
+
     double sqFoot = 0;
-    
+
     try {
       sqFoot = Double.parseDouble(sqFootField.getText());
-    }
-    catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       alert = new Alert(AlertType.WARNING, "Invalid input for Sq.Ft/Unit!");
       alert.showAndWait();
       return;
     }
-    
+
     String inStock = inStockField.getText();
     String price = priceField.getText();
-    
+
     prod.setManufacturer(man);
     prod.setColor(color);
     prod.setStyle(style);
@@ -387,17 +377,17 @@ public class ComboScene extends Scene {
     prod.setType(type);
     prod.setAmountPerBox(numPer);
     prod.setSqFoot(sqFoot);
-    prod.setSqFootTotal(sqFoot*qty);
+    prod.setSqFootTotal(sqFoot * qty);
     prod.setInStock(inStock);
     prod.setPrice(price);
-    
+
     Main.allProducts.add(prod);
     clearFields();
     updateListView();
   }
-  
+
   private void editProduct(Product prod) {
-    if(!bottomControls.getChildren().contains(delete)) {
+    if (!bottomControls.getChildren().contains(delete)) {
       delete = new Button("Delete");
       bottomControls.getChildren().add(delete);
       delete.setOnAction(e -> {
@@ -405,13 +395,13 @@ public class ComboScene extends Scene {
         Main.allProducts.remove(prod);
         clearFields();
         updateListView();
-        confirm.setText("Add New Product"); 
+        confirm.setText("Add New Product");
         confirm.setOnAction(f -> {
           addNewProduct();
         });
       });
     }
-    
+
     confirm.setText("Save Changes");
     confirm.setOnAction(e -> {
       bottomControls.getChildren().remove(delete);
@@ -421,7 +411,7 @@ public class ComboScene extends Scene {
         addNewProduct();
       });
     });
-    
+
     cancel.setOnAction(e -> {
       bottomControls.getChildren().remove(delete);
       clearFields();
@@ -430,7 +420,7 @@ public class ComboScene extends Scene {
         addNewProduct();
       });
     });
-    
+
     priceField.setOnKeyPressed(e -> {
       if (e.getCode().equals(KeyCode.ENTER)) {
         bottomControls.getChildren().remove(delete);
@@ -441,7 +431,7 @@ public class ComboScene extends Scene {
         });
       }
     });
-    
+
     manField.setText(prod.getManufacturer());
     styleField.setText(prod.getStyle());
     colorField.setText(prod.getColor());
@@ -455,53 +445,49 @@ public class ComboScene extends Scene {
     priceField.setText(prod.getPrice());
   }
 
-  
   private void saveChanges(Product prod) {
     Alert alert = null;
-    
+
     String man = manField.getText();
     String color = colorField.getText();
     String style = styleField.getText();
     String dim = dimField.getText();
-    
+
     int qty = 0;
-    
+
     try {
       qty = Integer.parseInt(qtyField.getText());
-    }
-    catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       alert = new Alert(AlertType.WARNING, "Invalid input for Num. Units!");
       alert.showAndWait();
       return;
     }
-    
+
     String type = typeField.getText();
-    
+
     int numPer = 0;
-    
+
     try {
       numPer = Integer.parseInt(qtyPerField.getText());
-    }
-    catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       alert = new Alert(AlertType.WARNING, "Invalid input for Qty./Unit!");
       alert.showAndWait();
       return;
     }
-    
+
     double sqFoot = 0;
-    
+
     try {
       sqFoot = Double.parseDouble(sqFootField.getText());
-    }
-    catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       alert = new Alert(AlertType.WARNING, "Invalid input for Sq.Ft/Unit!");
       alert.showAndWait();
       return;
     }
-    
+
     String inStock = inStockField.getText();
     String price = priceField.getText();
-    
+
     prod.setManufacturer(man);
     prod.setColor(color);
     prod.setStyle(style);
@@ -510,10 +496,10 @@ public class ComboScene extends Scene {
     prod.setType(type);
     prod.setAmountPerBox(numPer);
     prod.setSqFoot(sqFoot);
-    prod.setSqFootTotal(sqFoot*qty);
+    prod.setSqFootTotal(sqFoot * qty);
     prod.setInStock(inStock);
     prod.setPrice(price);
-    
+
     clearFields();
     updateListView();
   }

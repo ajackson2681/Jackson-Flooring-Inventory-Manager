@@ -1,18 +1,19 @@
 package application;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import jsonutils.JSONUtils;
 import scenes.ComboScene;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import java.util.ArrayList;
 import data.Product;
 
 public class Main extends Application {
   
   private static Scene currentScene;
-  public static ArrayList<Product> allProducts;
+  public static ObservableList<Product> allProducts;
   
   @Override
   public void start(Stage primaryStage) {
@@ -31,7 +32,7 @@ public class Main extends Application {
   }
 
   public static void main(String[] args) {
-    allProducts = new ArrayList<>();
+    allProducts = FXCollections.observableArrayList();
     JSONUtils.load("data.json");
     launch(args);
   }

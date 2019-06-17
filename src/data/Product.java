@@ -15,6 +15,17 @@ public class Product {
   private String price;
   
   public Product() {
+    this.manufacturer = "N/A";
+    this.color = "N/A";
+    this.inStock = "N/A";
+    this.dimensions = "N/A";
+    this.quantity = 0;
+    this.type = "N/A";
+    this.amountPerBox = 0;
+    this.sqFoot = 0;
+    this.sqFoot = 0;
+    this.inStock = "N/A";
+    this.price = "N/A";
   }
 
   public String getManufacturer() {
